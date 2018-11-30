@@ -81,3 +81,17 @@ def get_dictionary(file):
     
     with open(file) as f:
         return[w.strip().upper() for w in f]
+        
+def main():
+    
+    grid = make_grid(3, 3)
+    dictionary = get_dictionary("words.txt")
+    words = search(grid, dictionary)
+    words_output = []
+    for word in words:
+        words_output.append(word)
+    print(words_output)
+    print("%s words found" % len(words)) 
+    
+if __name__ == "__main__":
+    main()    
