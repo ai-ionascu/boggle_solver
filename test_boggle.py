@@ -88,7 +88,9 @@ class test_boggle(unittest.TestCase):
         twoLetterWord = "AB"
         threeLetterWord = "ABC"
         notThereWord = "EEE"
-        dictionary = [oneLetterWord, twoLetterWord, threeLetterWord, notThereWord]
+        fullWords = [oneLetterWord, twoLetterWord, threeLetterWord, notThereWord]
+        partialWords = ["A", "AB", "E", "EE"]
+        dictionary = fullWords, partialWords
         foundWords = boggle.search(grid, dictionary)
         
         self.assertTrue(oneLetterWord in foundWords)

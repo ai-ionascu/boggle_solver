@@ -55,11 +55,14 @@ def search(grid, dictionary):
     
     neighbors = all_grid_neighbors(grid)
     paths = []
+    full_words, partial_words = dictionary
     
     def do_search(path):
         word = path_to_word(grid, path)
-        if word in dictionary:
+        if word in full_words:
             paths.append(path)
+        if word not in partial_words:
+            return
         for next_pos in neighbors[path[-1]]:
             if next_pos not in path:
                 do_search(path + [next_pos])
@@ -78,13 +81,21 @@ def get_dictionary(file):
     """
     load the dictionary file
     """
+    full_words, partial_words = set(), set()
     
     with open(file) as f:
-        return[w.strip().upper() for w in f]
+        for word in f:
+            word = word.strip().upper()
+            full_words.add(word)
+            
+            for pword in range(1, len(word)):
+                partial_words.add(word[:pword])
+                
+    return full_words, partial_words
         
 def main():
     
-    grid = make_grid(3, 3)
+    grid = make_grid(5, 5)
     dictionary = get_dictionary("words.txt")
     words = search(grid, dictionary)
     words_output = []
@@ -94,4 +105,4 @@ def main():
     print("%s words found" % len(words)) 
     
 if __name__ == "__main__":
-    main()    
+    main()        
